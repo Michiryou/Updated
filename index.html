@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weelab's Catering Services</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="initApp()">
+
+<header>
+  <a href="#" class="logo"><img src="Weelab.jpg" height="70" width="70" alt="Logo" /></a>
+  <h2>Weelab's Catering Services</h2>
+  <nav>
+    <ul>
+      <li><button id="btnHome" onclick="showPage('frontPage')">Home</button></li>
+      <li><button id="btnGallery" onclick="showPage('Designs')">Gallery</button></li>
+      <li><button id="btnTeam" onclick="showPage('profile')">Team</button></li>
+      <li class="requires-login"><button id="btnInquire" onclick="showPage('bookingForm')">Inquire</button></li>
+      <li class="requires-login"><button id="btnBookings" onclick="showPage('bookings')" style="display:none;">Bookings</button></li>
+      <li id="logoutLi" style="display:none;"><button id="btnLogout" onclick="logout()">Logout</button></li>
+      <li id="btnLoginLi"><button id="btnLogin" onclick="showPage('loginPage')">Login</button></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Home Page -->
+<section id="frontPage" class="page">
+  <h1>Welcome to Weelab Catering!</h1>
+  <p class="p1">Your dream events made memorable. Fill in your info here.</p>
+  <div id="homeSets" class="home-sets">
+    <button class="set-btn" onclick="selectSet('A')">Set A - Adobo | Rice | Ice Cream | Water</button>
+    <button class="set-btn" onclick="selectSet('B')">Set B - Caldereta | Lumpia | Leche Flan | Iced Tea</button>
+    <button class="set-btn" onclick="selectSet('C')">Set C - Menudo | Sweet & Sour | Brownies | Soft Drinks</button>
+  </div>
+  <button class="btnsave" onclick="showPage('bookingForm')">Book Now</button>
+</section>
+
+<!-- Gallery Page -->
+<section id="Designs" class="page" style="display:none;">
+  <h1>Gallery</h1>
+  <div class="gallery">
+    <img src="style1.jpg" alt="Decor 1" />
+    <img src="style2.jpg" alt="Decor 2" />
+    <img src="style3.jpg" alt="Decor 3" />
+    <img src="style4.jpg" alt="Decor 4" />
+    <img src="style5.jpg" alt="Decor 5" />
+  </div>
+</section>
+
+<!-- Team Page -->
+<section id="profile" class="page" style="display:none;">
+  <h1>Meet Our Team</h1>
+  <div class="card-container">
+    <div class="profile-card">
+      <img src="chezk.jpg" alt="Profile" />
+      <h3>Franzcezca Nicole Del Rosario</h3>
+      <p class="p1">Graphic Designer</p>
+      <p class="p2">I specialize in designing and visualizing the true potential in every idea. I work hard and lend a helping hand to the best of my capability.</p>
+    </div>
+
+    <div class="profile-card">
+      <img src="profile-cess.jpg" alt="Profile" />
+      <h3>Jan Francess Manansala</h3>
+      <p class="p1">UI/UX Designer</p>
+      <p class="p2">I am a simple and hardworking person who always tries to do my best. I enjoy learning new things and improving myself every day.</p>
+    </div>
+
+    <div class="profile-card">
+      <img src="micho.jpg" alt="Profile" />
+      <h3>Micho Andrew B. Patañag</h3>
+      <p class="p1">Illustrator</p>
+      <p class="p2">I am a beginner programmer who loves exploring how things work behind the scenes. I enjoy creating simple projects, solving problems step-by-step, and learning new concepts in web development.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Booking Form Page -->
+<section id="bookingForm" class="page" style="display:none;">
+  <h1>Book Your Event</h1>
+  <form class="Form-input" onsubmit="event.preventDefault(); saveBook();">
+    <input type="text" id="nameInput" placeholder="Name" required />
+    <input type="email" id="emailInput" placeholder="Email" required />
+    <input type="text" id="contactInput" placeholder="Contact Number" required />
+    <input type="date" id="eventDateInput" required />
+    <input type="text" id="eventVenueInput" placeholder="Event Venue" required />
+    <input type="number" id="guestInput" placeholder="No. of Guests" required min="1" />
+    <select id="StyleInput" required>
+      <option value="">Select Style</option>
+      <option value="Casual">Casual</option>
+      <option value="Formal">Formal</option>
+      <option value="Theme">Theme</option>
+    </select>
+
+    <h3>Main Dishes</h3>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="mainDishes" value="Adobo" /> Adobo</label>
+      <label><input type="checkbox" name="mainDishes" value="Caldereta" /> Caldereta</label>
+      <label><input type="checkbox" name="mainDishes" value="Menudo" /> Menudo</label>
+      <label><input type="checkbox" name="mainDishes" value="Sinigang" /> Sinigang</label>
+      <label><input type="checkbox" name="mainDishes" value="KareKare" /> KareKare</label>
+    </div>
+
+    <h3>Side Dishes</h3>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="sideDishes" value="Rice" /> Rice</label>
+      <label><input type="checkbox" name="sideDishes" value="Lumpia" /> Lumpia</label>
+      <label><input type="checkbox" name="sideDishes" value="SweetSour" /> Sweet & Sour</label>
+      <label><input type="checkbox" name="sideDishes" value="FruitSalad" /> Fruit Salad</label>
+      <label><input type="checkbox" name="sideDishes" value="CornSalad" /> Corn Salad</label>
+    </div>
+
+    <h3>Desserts</h3>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="desserts" value="Ice Cream" /> Ice Cream</label>
+      <label><input type="checkbox" name="desserts" value="LecheFlan" /> Leche Flan</label>
+      <label><input type="checkbox" name="desserts" value="Brownies" /> Brownies</label>
+      <label><input type="checkbox" name="desserts" value="FruitTart" /> Fruit Tart</label>
+      <label><input type="checkbox" name="desserts" value="HaloHalo" /> Halo-Halo</label>
+    </div>
+
+    <h3>Drinks</h3>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="drinks" value="Water" /> Water</label>
+      <label><input type="checkbox" name="drinks" value="IcedTea" /> Iced Tea</label>
+      <label><input type="checkbox" name="drinks" value="SoftDrinks" /> Soft Drinks</label>
+      <label><input type="checkbox" name="drinks" value="Juice" /> Juice</label>
+      <label><input type="checkbox" name="drinks" value="Coffee" /> Coffee</label>
+    </div>
+
+    <label id="priceLabel" style="font-weight:600; color:#6c63ff; display:block; margin-top:15px;">Total: ₱0</label>
+    <button type="submit" class="btnsave">Proceed</button>
+  </form>
+</section>
+
+<!-- Bookings Page -->
+<section id="bookings" class="page requires-login" style="display:none;">
+  <h1>All Bookings</h1>
+  <div class="search-container">
+    <input id="searchInput" type="text" placeholder="Search by name" oninput="displayBookings(this.value)" />
+  </div>
+  <div id="cardsContainer" class="cardsContainer"></div>
+</section>
+
+<!-- Receipt Page -->
+<section id="receiptPage" class="page" style="display:none;">
+  <h1>Receipt</h1>
+  <p><strong>Name:</strong> <span id="recName"></span></p>
+  <p><strong>Email:</strong> <span id="recEmail"></span></p>
+  <p><strong>Contact:</strong> <span id="recContact"></span></p>
+  <p><strong>Event Date:</strong> <span id="recDate"></span></p>
+  <p><strong>Venue:</strong> <span id="recVenue"></span></p>
+  <p><strong>No. of Guests:</strong> <span id="recGuests"></span></p>
+  <p><strong>Style:</strong> <span id="recStyle"></span></p>
+
+  <ul id="recItems"></ul>
+  <p id="recTotal"></p>
+  <button onclick="showPage('frontPage')">Back to Home</button>
+</section>
+
+<!-- Login/Register Page -->
+<div id="loginPage" class="page" style="display:none;">
+  <div class="login-card">
+    <img src="Weelab.jpg" alt="WeeLab Logo" class="login-logo">
+    <h2>Admin Login</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()" class="btn">Login</button>
+
+    <p>Don't have an account? <span id="showRegister" style="color:#574bff; cursor:pointer;">Sign Up</span></p>
+    <div id="registerForm" style="display:none; margin-top:10px;">
+      <h2>Sign up</h2>
+      <input type="text" id="regUser" placeholder="New Username">
+      <input type="password" id="regPass" placeholder="New Password">
+      <button onclick="register()" class="btn">Register</button>
+      <p><span id="hideRegister" style="color:#574bff; cursor:pointer;">Back to Login</span></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Contact us: info@weelab.com | Website: www.weelab.com</p>
+</footer>
+
+<script src="weelab_ems.js"></script>
+</body>
+</html>
